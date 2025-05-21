@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_rounded_white"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/_5sdp">
+
+    <!--<org.videolan.libvlc.util.VLCVideoLayout
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="gone" />-->
+
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="gone"  />
+
+
+    <ImageView
+        android:id="@+id/dialogImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/dialogOkButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="@drawable/shape_round_btn_green"
+        android:fontFamily="@font/poppins_regular"
+        android:text="OK"
+        android:textColor="@color/white" />
+</LinearLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/verticalSwitch"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/_2sdp">
+<!--    android:background="@drawable/vertical_switch_background"-->
+
+    <TextView
+        android:id="@+id/labelOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OFF"
+        android:textColor="@android:color/white"
+        android:padding="@dimen/_2sdp"
+        android:textSize="@dimen/_7ssp"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_regular"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/switchHandle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_15sdp"
+        android:background="@drawable/vertical_switch_handle"
+        android:layout_marginVertical="@dimen/_2sdp" />
+
+    <TextView
+        android:id="@+id/labelOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" ON"
+        android:textColor="@android:color/white"
+        android:padding="@dimen/_2sdp"
+        android:textSize="@dimen/_7ssp"
+        android:gravity="center"
+        android:fontFamily="@font/poppins_regular"
+        android:visibility="visible" />
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Wiespl Digital OR</string>
+
+    <string name="no_connection">No internet Connection</string>
+    <string name="turn_on_connection">Please turn on internet connection to continue</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+
+</resources>

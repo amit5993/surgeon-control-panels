@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:seekarc="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_300sdp"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center_vertical"
+                android:text="Temperature"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp" />
+
+            <ImageView
+                android:id="@+id/imgClose"
+                style="@style/HomeImageStyle"
+                android:src="@drawable/ic_close"
+                app:tint="@color/white" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    android:text="Current Temperature"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tvCurrentTemp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="19.5 C"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22sdp" />
+
+                <LinearLayout
+                    android:id="@+id/llRequestedTemp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/poppins_bold"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Set Temperature : "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_8sdp" />
+
+                    <TextView
+                        android:id="@+id/tvRequestedTemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_9sdp" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="Current Temperature"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <com.surgeon.controlpanels.common.SeekArc
+                        android:id="@+id/seekBar"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/_20sdp"
+                        app:arcWidth="@dimen/_5sdp"
+                        app:rotation="180"
+                        app:progressColor="@color/white"
+                        app:thumb="@drawable/custom_thumb"
+                        app:arcColor="#75FFFFFF"
+                        app:startAngle="30"
+                        app:sweepAngle="300"
+                        app:touchInside="true" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvChangeTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="19.5 C"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_22sdp" />
+
+                        <TextView
+                            android:id="@+id/btnSave"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/shape_btn_white"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/_15sdp"
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:text="SET"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_20sdp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

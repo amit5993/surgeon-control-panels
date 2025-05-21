@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_15sdp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!--<com.surgeon.controlpanels.common.AnalogClockView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_4sdp"/>-->
+
+            <com.surgeon.controlpanels.common.CombinedClockView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_4sdp" />
+
+            <DigitalClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvOTName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp"
+                tools:ignore="NestedWeights" />
+
+            <LinearLayout
+                android:id="@+id/llSurgeryDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:orientation="vertical">
+                <!--android:background="@drawable/shape_round_edittext"-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvSurgeonName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        tools:ignore="NestedWeights" />
+
+                    <TextView
+                        android:id="@+id/tvSurgeryStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:text="SURGERY IN PROGRESS"
+                        android:textColor="@color/colorGreen1"
+                        android:textSize="@dimen/_7ssp"
+                        android:visibility="gone"
+                        tools:ignore="NestedWeights" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/progress_gray"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvPatientName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text=""
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        tools:ignore="NestedWeights" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/progress_gray"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        tools:ignore="NestedWeights" />
+
+                    <Button
+                        android:id="@+id/btnStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:background="@drawable/shape_round_btn"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_6ssp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <DigitalClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_minus3sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18ssp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvTimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus3sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp" />
+
+            <TextView
+                android:id="@+id/tvHepa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/_9ssp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!--<Button
+                android:id="@+id/btnPlayMPGS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play" />-->
+            <!--<Button
+                android:id="@+id/btnStopMPGS"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stop" />-->
+
+            <FrameLayout
+                android:id="@+id/flMute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_round_btn_yellow"
+                android:padding="@dimen/_5sdp">
+
+                <ImageView
+                    android:id="@+id/imgMuteMGPS"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:src="@drawable/ic_mute" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerMenu"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabMaxWidth="10dp" />
+
+            <!--<androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginBottom="@dimen/_1sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/raw_menu" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_15sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="match_parent"
+            android:src="@drawable/app_icon" />
+
+        <LinearLayout
+            android:id="@+id/llMusic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_round_black_transparent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvCurrentDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="00:00"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_7ssp" />
+
+                <SeekBar
+                    android:id="@+id/sbMusic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <!--android:thumb="@drawable/music_thumb"-->
+
+                <TextView
+                    android:id="@+id/tvTotalDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="00:00"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_7ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Calling All Angels"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp" />
+
+                <ImageView
+                    android:id="@+id/previousButton"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:rotation="180"
+                    android:src="@drawable/ic_next_button"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/playPauseButton"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginHorizontal="@dimen/_15sdp"
+                    android:background="@drawable/shape_circle_gradient"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_play_vector" />
+
+                <ImageView
+                    android:id="@+id/nextButton"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/ic_next_button"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="System On/Off"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_5ssp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swOnOffSystem"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:textOff=""
+                android:textOn=""
+                android:textSize="@dimen/_5ssp"
+                android:thumb="@drawable/custom_thumb"
+                app:showText="true"
+                app:track="@drawable/custom_track" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgRefresh"
+            style="@style/HomeImageStyle"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:src="@drawable/ic_refresh" />
+
+        <ImageView
+            android:id="@+id/imgSetting"
+            style="@style/HomeImageStyle"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:src="@drawable/ic_setting" />
+
+        <ImageView
+            android:id="@+id/imgMute"
+            style="@style/HomeImageStyle"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:src="@drawable/ic_unmute"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imgLogout"
+            style="@style/HomeImageStyle"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:visibility="gone"
+            android:src="@drawable/ic_logout" />
+
+    </LinearLayout>
+
+</LinearLayout>

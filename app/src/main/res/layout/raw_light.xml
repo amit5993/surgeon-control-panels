@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_8sdp">
+
+        <TextView
+            android:id="@+id/tvLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:text="25.34%"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/swOnOffLight"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins_regular"
+            android:textOff=""
+            android:textOn=""
+            android:textSize="@dimen/_5ssp"
+            android:thumb="@drawable/custom_thumb"
+            app:showText="true"
+            app:track="@drawable/custom_track" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <SeekBar
+            android:id="@+id/sbLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_weight="1"
+            android:max="100"
+            android:maxHeight="@dimen/_5sdp"
+            android:min="1"
+            android:minHeight="@dimen/_5sdp"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:splitTrack="false"
+            android:thumb="@drawable/seekbar_thumb" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white" />
+
+</LinearLayout>

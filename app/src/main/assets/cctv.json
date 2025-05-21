@@ -1,0 +1,184 @@
+[
+  {
+    "srNo": 1,
+    "command": "#SET_AV 1 TO A",
+    "api_url": "set1A",
+    "description": "Switches input HDMI 1 to output A."
+  },
+  {
+    "srNo": 2,
+    "command": "#SET_AV 2 TO A",
+    "api_url": "set2A",
+    "description": "Switches input HDMI 2 to output A."
+  },
+  {
+    "srNo": 3,
+    "command": "#SET_AV 3 TO A",
+    "api_url": "set3A",
+    "description": "Switches input HDMI 3 to output A."
+  },
+  {
+    "srNo": 4,
+    "command": "#SET_AV 4 TO A",
+    "api_url": "set4A",
+    "description": "Switches input HDMI 4 to output A."
+  },
+  {
+    "srNo": 5,
+    "command": "#SET_MV_MODE 1",
+    "api_url": "mv1",
+    "description": "Sets Multiview mode 1 (1 WINDOW Full)."
+  },
+  {
+    "srNo": 6,
+    "command": "#SET_MV_MODE 2",
+    "api_url": "mv2",
+    "description": "Sets Multiview mode 2 (2 WINDOWS Picture-by-Picture)."
+  },
+  {
+    "srNo": 7,
+    "command": "#SET_MV_MODE 3",
+    "api_url": "mv3",
+    "description": "Sets Multiview mode 3 (3 WINDOWS 2UID layout)."
+  },
+  {
+    "srNo": 8,
+    "command": "#SET_MV_MODE 4",
+    "api_url": "mv4",
+    "description": "Sets Multiview mode 4 (4 WINDOWS same size)."
+  },
+  {
+    "srNo": 9,
+    "command": "#SET_MV_MODE 5",
+    "api_url": "mv5",
+    "description": "Sets Multiview mode 5 (2 WINDOWS PIP, top-left)."
+  },
+  {
+    "srNo": 10,
+    "command": "#SET_MV_MODE 6",
+    "api_url": "mv6",
+    "description": "Sets Multiview mode 6 (2 WINDOWS PIP, bottom-left)."
+  },
+  {
+    "srNo": 11,
+    "command": "#SET_MV_MODE 7",
+    "api_url": "mv7",
+    "description": "Sets Multiview mode 7 (2 WINDOWS PIP, top-right)."
+  },
+  {
+    "srNo": 12,
+    "command": "#SET_MV_MODE 8",
+    "api_url": "mv8",
+    "description": "Sets Multiview mode 8 (2 WINDOWS PIP, bottom-right)."
+  },
+  {
+    "srNo": 13,
+    "command": "#SET_MV_MODE 9",
+    "api_url": "mv9",
+    "description": "Sets Multiview mode 9 (4 WINDOWS PBP, 3 left/1 right)."
+  },
+  {
+    "srNo": 14,
+    "command": "#SET_MV_MODE 10",
+    "api_url": "mv10",
+    "description": "Sets Multiview mode 10 (4 WINDOWS PBP, 1 left/3 right)."
+  },
+  {
+    "srNo": 15,
+    "command": "#SET_MV_MODE 11",
+    "api_url": "mv11",
+    "description": "Sets Multiview mode 11 (4 WINDOWS PBP, 3 top/1 bottom)."
+  },
+  {
+    "srNo": 16,
+    "command": "#SET_MV_MODE 12",
+    "api_url": "mv12",
+    "description": "Sets Multiview mode 12 (4 WINDOWS PBP, 1 top/3 bottom)."
+  },
+  {
+    "srNo": 17,
+    "command": "#SET_MV_MODE 13",
+    "api_url": "mv13",
+    "description": "Sets Multiview mode 13 (4 WINDOWS PIP, 1 main with 3 on left)."
+  },
+  {
+    "srNo": 18,
+    "command": "#SET_MV_MODE 14",
+    "api_url": "mv14",
+    "description": "Sets Multiview mode 14 (4 WINDOWS PIP, 1 main with 3 on right)."
+  },
+  {
+    "srNo": 19,
+    "command": "#SET_MV_MODE 15",
+    "api_url": "mv15",
+    "description": "Sets Multiview mode 15 (4 WINDOWS PIP, 1 main with 3 on top)."
+  },
+  {
+    "srNo": 20,
+    "command": "#SET_MV_MODE 16",
+    "api_url": "mv16",
+    "description": "Sets Multiview mode 16 (4 WINDOWS PIP, 1 main with 3 on bottom)."
+  },
+  {
+    "srNo": 21,
+    "command": "#SET_MV_MODE 17",
+    "api_url": "mv17",
+    "description": "Sets Multiview mode 17 (User Config 1)."
+  },
+  {
+    "srNo": 22,
+    "command": "#SET_MV_MODE 18",
+    "api_url": "mv18",
+    "description": "Sets Multiview mode 18 (User Config 2)."
+  },
+  {
+    "srNo": 23,
+    "command": "#SET_MV_MODE 19",
+    "api_url": "mv19",
+    "description": "Sets Multiview mode 19 (User Config 3)."
+  },
+  {
+    "srNo": 24,
+    "command": "#SET_MV_MODE 20",
+    "api_url": "mv20",
+    "description": "Sets Multiview mode 20 (User Config 4)."
+  },
+  {
+    "srNo": 25,
+    "command": "#SET_SWAP_SRC",
+    "api_url": "swap_src",
+    "description": "Swaps the input source configuration between HDMI inputs."
+  },
+  {
+    "srNo": 26,
+    "command": "#SET_RESIZE_WIM",
+    "api_url": "resize_win",
+    "description": "Resizes the display windows (optionally accepts a configuration)."
+  },
+  {
+    "srNo": 27,
+    "command": "#GET_MV_MODE",
+    "api_url": "get_mv_mode",
+    "description": "Retrieves the current Multiview mode of the switcher."
+  },
+  {
+    "srNo": 28,
+    "command": "(Connect)",
+    "api_url": "connect",
+    "method": "POST",
+    "description": "Establishes a Telnet connection to the HDMI switcher (host/port in JSON)."
+  },
+  {
+    "srNo": 29,
+    "command": "(Disconnect)",
+    "api_url": "disconnect",
+    "method": "POST",
+    "description": "Closes the active Telnet connection to the HDMI switcher."
+  },
+  {
+    "srNo": 30,
+    "command": "(Root)",
+    "api_url": "",
+    "description": "Confirms that the Flask server is running."
+  }
+]

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_300sdp"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llMainHD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:gravity="center_vertical"
+                android:text="Humidity"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp" />
+
+            <ImageView
+                android:id="@+id/imgClose"
+                style="@style/HomeImageStyle"
+                android:src="@drawable/ic_close"
+                app:tint="@color/white" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:text="Current Humidity"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvCurrentHumidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="50%"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22sdp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/llRequestedHumidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/poppins_bold"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Set Humidity : "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_8sdp" />
+
+                    <TextView
+                        android:id="@+id/tvRequestedHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_9sdp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:singleLine="true"
+                    android:text="Current Humidity"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <com.surgeon.controlpanels.common.SeekArc
+                        android:id="@+id/sbHumidity"
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/_20sdp"
+                        app:arcColor="#75FFFFFF"
+                        app:arcWidth="@dimen/_5sdp"
+                        app:progressColor="@color/white"
+                        app:rotation="180"
+                        app:startAngle="30"
+                        app:sweepAngle="300"
+                        app:thumb="@drawable/custom_thumb"
+                        app:touchInside="true" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvChangeHumidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="50%"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_22sdp" />
+
+                        <TextView
+                            android:id="@+id/btnSaveHumidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/shape_btn_white"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/_15sdp"
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:text="SET"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_20sdp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="photo_illustration_health">
+        <item>@drawable/illustration_health_01</item>
+        <item>@drawable/illustration_health_02</item>
+        <item>@drawable/illustration_health_03</item>
+        <item>@drawable/illustration_health_04</item>
+    </array>
+
+    <array name="strings_wizard_title">
+        <item>Fusce dictum tristique\10elit nec iaculis</item>
+        <item>Vivamus laoreet aliquam\10ipsum eget pretium</item>
+        <item>Proin libero sem, auctor\10in posuere sit</item>
+        <item>Curabitur accumsan tellus ac\10iaculis fermentum</item>
+    </array>
+
+    <array name="strings_wizard_content">
+        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dolor risus, aliquet a erat quis duis accumsan dignissim.</item>
+        <item>Pellentesque lacinia ut urna ut gravida. Proin libero sem, auctor in posuere sit amet, porta a nibh. Vivamus maximus nunc.</item>
+        <item>Maecenas finibus nulla purus, ac consectetur erat finibus vitae. Ut eget convallis dolor. Mauris a leo nunc.</item>
+        <item>Nam in venenatis risus. In facilisis tristique mollis. Curabitur tempus ipsum eget ipsum pharetra ornare.</item>
+    </array>
+
+</resources>
