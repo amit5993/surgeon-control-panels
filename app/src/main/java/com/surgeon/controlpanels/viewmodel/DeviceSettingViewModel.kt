@@ -18,7 +18,10 @@ class DeviceSettingViewModel(application: Application) : AndroidViewModel(applic
     // Update database and refresh LiveData
     fun updateAllDeviceSettings(message: String) {
         // Fetch the updated data and post it
-        dbHelper.updateAllDeviceSettings1(JSONObject(message).getString("frameData"))
+        //dbHelper.updateAllDeviceSettings1(JSONObject(message).getString("frameData"))
+        if (message.startsWith("{,")) {
+            dbHelper.updateAllDeviceSettings1(message)
+        }
         _deviceSettings.postValue(ArrayList())
     }
 

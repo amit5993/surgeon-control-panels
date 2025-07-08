@@ -47,17 +47,6 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20ssp" />
 
-                <TextView
-                    android:id="@+id/tvDrName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -73,28 +62,6 @@
                     android:layout_height="@dimen/_70sdp"
                     android:padding="@dimen/_10sdp"
                     android:src="@drawable/app_icon" />
-
-                <DigitalClock
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/poppins_bold"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_17ssp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tvTimer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_minus3sdp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:text="25 Apr 2024"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
-                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -114,521 +81,147 @@
 
 
     <LinearLayout
-        android:id="@+id/llSurgeryDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:orientation="horizontal">
 
-        <RelativeLayout
+        <EditText
+            android:id="@+id/etSocketUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:id="@+id/llSurgery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/shape_round_edittext"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Date / Time"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvDateTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Surgeon Name"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvSurgeonName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Patient Name"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvPatientName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Anesthesia"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvAnesthesia"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Surgery Type"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvSurgeonType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Surgery Status"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvSurgeryStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            android:layout_weight="1"
+            android:padding="@dimen/_10sdp"
+            android:background="@drawable/shape_round_edittext"
+            android:fontFamily="@font/poppins_regular"
+            android:text="ws://192.168.31.225:8080"
+            android:hint="Enter Socket URL"
+            android:textColor="@color/white"
+            android:inputType="textUri" />
 
 
-            <TextView
-                android:id="@+id/tvNoData"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:fontFamily="@font/poppins_medium"
-                android:gravity="center"
-                android:padding="@dimen/_5sdp"
-                android:text="No Scheduled Surgery for Today"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                android:visibility="gone" />
-
-
-        </RelativeLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnConnect"
+            android:background="@drawable/shape_round_btn"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/shape_round_edittext"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/llElapsedTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Elapsed Time"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvElapsedTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp" />
-
-                </LinearLayout>
-
-
-                <View
-                    android:id="@+id/viewElapsedTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="OT Temp :"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvTemp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text="OR Pressure :"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray" />
-
-                    <TextView
-                        android:id="@+id/tvPressure"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/_5sdp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
+            android:textColor="@color/white"
+            android:text="Connect" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llMain"
+
+    <TextView
+        android:id="@+id/tvSocketStatus"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text=""
+        android:textSize="@dimen/_14ssp" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_9ssp" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@drawable/shape_round_edittext"
         android:gravity="center"
         android:orientation="vertical">
 
+
         <LinearLayout
-            android:id="@+id/llMinutes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center_vertical"
                 android:padding="@dimen/_5sdp"
-                android:text="Selecte Duration "
+                android:text="OT Temp :"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_11ssp" />
 
-            <Spinner
-                android:id="@+id/spinnerMinutes"
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorGray" />
+
+            <TextView
+                android:id="@+id/tvTemp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/shape_rounded_white"
-                android:padding="@dimen/_8sdp" />
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_5sdp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11ssp" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvOTStatus"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_50sdp"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="center"
-            android:padding="@dimen/_5sdp"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="@dimen/_11ssp" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvCountdown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_5sdp"
+                android:text="OR Pressure :"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11ssp" />
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorGray" />
 
-        <Button
-            android:id="@+id/btnSkip"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_gravity="center"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:background="@drawable/shape_round_btn_yellow"
-            android:gravity="center"
-            android:text="Skip"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp" />
+            <TextView
+                android:id="@+id/tvPressure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical"
+                android:padding="@dimen/_5sdp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11ssp" />
 
-        <Button
-            android:id="@+id/btnStart"
-            android:layout_width="@dimen/_160sdp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:background="@drawable/shape_round_btn"
-            android:gravity="center"
-            android:text=""
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
 
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
-        android:background="@drawable/shape_round_btn_red"
-        android:gravity="center"
-        android:text="LOGOUT"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_9ssp" />
 
 </LinearLayout>

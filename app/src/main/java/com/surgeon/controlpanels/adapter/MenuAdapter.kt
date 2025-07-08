@@ -4,10 +4,14 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.surgeon.controlpanels.R
 import com.surgeon.controlpanels.common.Constant
+import com.surgeon.controlpanels.common.Utils
 import com.surgeon.controlpanels.common.loadResImage
 import com.surgeon.controlpanels.databinding.RawMenuBinding
 import com.surgeon.controlpanels.db.DbHelper
@@ -71,11 +75,15 @@ class MenuAdapter(
             if (adapterData.click == Constant.mgps) {
 
                 val dbHelper = DbHelper(context)
-                val list = dbHelper.getDeviceSettingsByType(1)
+                val list = dbHelper.getDeviceSettingsByType(Constant.DB_MGPS_TYPE)
                 val index = list.indexOfFirst { it.value == "1" }
                 if (index != -1) {
                     binding.img.setColorFilter(ContextCompat.getColor(context, R.color.colorRed), android.graphics.PorterDuff.Mode.SRC_IN)
                     binding.tvName.setTextColor(ContextCompat.getColor(context, R.color.colorRed))
+
+                    Utils.blinkAnimation(binding.img)
+                    Utils.blinkAnimation(binding.tvName)
+
                 } else {
                     binding.img.setColorFilter(ContextCompat.getColor(context, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN)
                     binding.tvName.setTextColor(ContextCompat.getColor(context, R.color.white))

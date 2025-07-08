@@ -99,7 +99,7 @@ class LightAdapter(
             binding.swOnOffLight.setOnCheckedChangeListener { _, isChecked ->
                 //showConfirmationLightDialog(adapterData, position, isChecked)
                 adapterData.onOffValue = if (isChecked) "1" else "0"
-                binding.swOnOffLight.setOnCheckedChangeListener(null)
+                //binding.swOnOffLight.setOnCheckedChangeListener(null)
                 binding.swOnOffLight.isChecked = isChecked
                 binding.llLight.visibility = if (isChecked) View.VISIBLE else View.GONE
 

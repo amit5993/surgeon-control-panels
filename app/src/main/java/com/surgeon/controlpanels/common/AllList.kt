@@ -22,7 +22,7 @@ class AllList {
             tempList.add(MenuModel(R.drawable.ic_music, "Music", "", Constant.music))
             tempList.add(MenuModel(R.drawable.ic_light, "Lighting", "", Constant.light))
             tempList.add(MenuModel(R.drawable.ic_gas, "MGPS", "", Constant.mgps))
-            tempList.add(MenuModel(R.drawable.ic_pacs, "Entrance", "", Constant.entrance))
+            //tempList.add(MenuModel(R.drawable.ic_pacs, "Entrance", "", Constant.entrance))
 
             menuList.add(tempList)
 
@@ -65,10 +65,10 @@ class AllList {
             list.add(ColorThemeModel("Timer", Constant.timer))
             list.add(ColorThemeModel("Humidity", Constant.hd))
             list.add(ColorThemeModel("Lighting", Constant.light))
-            list.add(ColorThemeModel("Call", Constant.call))
-            list.add(ColorThemeModel("Alert", Constant.alert))
+//            list.add(ColorThemeModel("Call", Constant.call))
+//            list.add(ColorThemeModel("Alert", Constant.alert))
             list.add(ColorThemeModel("MGPS", Constant.mgps))
-            list.add(ColorThemeModel("CCTV", Constant.cctv))
+//            list.add(ColorThemeModel("CCTV", Constant.cctv))
 
             return list
 

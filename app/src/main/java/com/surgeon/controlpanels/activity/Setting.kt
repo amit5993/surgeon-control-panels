@@ -37,6 +37,7 @@ class Setting : AppCompatActivity() {
         setContentView(binding.root)
         activity = this
 
+        fragmentActive = ColorFragment()
 
         binding.imgClose.setOnClickListener {
             finish()
@@ -50,8 +51,8 @@ class Setting : AppCompatActivity() {
     }
 
     private fun setMenuAdapter() {
-        menuList.add(SettingMenuModel("Devices", true))
-        menuList.add(SettingMenuModel("Color", false))
+//        menuList.add(SettingMenuModel("Devices", true))
+        menuList.add(SettingMenuModel("Color", true))
 //        menuList.add(SettingMenuModel("Other", false))
 
         binding.tvTitle.text = menuList[0].name

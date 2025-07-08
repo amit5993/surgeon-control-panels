@@ -6,7 +6,7 @@ import com.surgeon.controlpanels.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-internal const val userData = "UserData"
+internal const val OTDetails = "OTDetails"
 internal const val device = "Device"
 internal const val latestSurgery = "LatestSurgery"
 internal const val currentMode = "CurrentMode"
@@ -26,14 +26,14 @@ fun Context.getSharedPreferences(): SharedPreferences {
     )
 }
 
-fun Context.setToken(data: String) {
+fun Context.setOTDetails(data: String) {
     val editor = getSharedPreferences().edit()
-    editor.putString(token, data)
+    editor.putString(OTDetails, data)
     editor.apply()
 }
 
-fun Context.getToken(): String? {
-    return getSharedPreferences().getString(token, "")
+fun Context.getOTDetails(): String {
+    return getSharedPreferences().getString(OTDetails, "")!!
 }
 
 fun Context.setSound(data: Boolean) {
@@ -46,66 +46,14 @@ fun Context.getSound(): Boolean {
     return getSharedPreferences().getBoolean(sound, true)
 }
 
-
-fun Context.setUserData(data: String) {
-    val editor = getSharedPreferences().edit()
-    editor.putString(userData, data)
-    editor.apply()
-}
-
-fun Context.getUserData(): String? {
-    return getSharedPreferences().getString(userData, "")
-}
-
-
-fun Context.setDeviceData(data: String) {
-    val editor = getSharedPreferences().edit()
-    editor.putString(device, data)
-    editor.apply()
-}
-
-fun Context.getDeviceData(): String? {
-    return getSharedPreferences().getString(device, "")
-}
-
-fun Context.setLatestSurgery(data: String) {
-    val editor = getSharedPreferences().edit()
-    editor.putString(latestSurgery, data)
-    editor.apply()
-}
-
-fun Context.getLatestSurgery(): String? {
-    return getSharedPreferences().getString(latestSurgery, "")
-}
-
-fun Context.setCurrentMode(data: String) {
-    val editor = getSharedPreferences().edit()
-    editor.putString(currentMode, data)
-    editor.apply()
-}
-
-fun Context.getCurrentMode(): String? {
-    return getSharedPreferences().getString(currentMode, OTStatus.READY_FOR_OT)
-}
-
-fun Context.setIsEntranceLogin(data: Boolean) {
+fun Context.setIsEntranceApp(data: Boolean) {
     val editor = getSharedPreferences().edit()
     editor.putBoolean(isEntrance, data)
     editor.apply()
 }
 
-fun Context.getIsEntranceLogin(): Boolean {
+fun Context.getIsEntranceApp(): Boolean {
     return getSharedPreferences().getBoolean(isEntrance, false)
-}
-
-fun Context.setIsReportLogin(data: Boolean) {
-    val editor = getSharedPreferences().edit()
-    editor.putBoolean(isReport, data)
-    editor.apply()
-}
-
-fun Context.getIsReportLogin(): Boolean {
-    return getSharedPreferences().getBoolean(isReport, false)
 }
 
 fun Context.setIsFirstTempToday(data: Boolean) {
@@ -143,17 +91,6 @@ fun Context.isFirstOpenToday(): Boolean {
         false
     }
 }
-
-
-//fun Context.setSrWsl(data: String) {
-//    val editor = getSharedPreferences().edit()
-//    editor.putString(SrWsl, data)
-//    editor.apply()
-//}
-//
-//fun Context.getSrWsl(): String? {
-//    return getSharedPreferences().getString(SrWsl, "")
-//}
 
 
 fun Context.clearPreferences() {

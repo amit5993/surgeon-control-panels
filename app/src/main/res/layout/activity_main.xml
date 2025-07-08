@@ -62,107 +62,17 @@
                 android:textSize="@dimen/_16ssp"
                 tools:ignore="NestedWeights" />
 
-            <LinearLayout
-                android:id="@+id/llSurgeryDetails"
+            <TextView
+                android:id="@+id/tvLog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:orientation="vertical">
-                <!--android:background="@drawable/shape_round_edittext"-->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvSurgeonName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp"
-                        tools:ignore="NestedWeights" />
-
-                    <TextView
-                        android:id="@+id/tvSurgeryStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:fontFamily="@font/poppins_bold"
-                        android:gravity="center"
-                        android:text="SURGERY IN PROGRESS"
-                        android:textColor="@color/colorGreen1"
-                        android:textSize="@dimen/_7ssp"
-                        android:visibility="gone"
-                        tools:ignore="NestedWeights" />
-
-                    <View
-                        android:layout_width="0.5dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/progress_gray"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvPatientName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text=""
-                        android:singleLine="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp"
-                        tools:ignore="NestedWeights" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/progress_gray"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvDateTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center"
-                        android:paddingHorizontal="@dimen/_10sdp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11ssp"
-                        tools:ignore="NestedWeights" />
-
-                    <Button
-                        android:id="@+id/btnStart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_12sdp"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_5sdp"
-                        android:background="@drawable/shape_round_btn"
-                        android:gravity="center"
-                        android:text=""
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_6ssp"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                tools:ignore="NestedWeights" />
 
         </LinearLayout>
 
@@ -439,6 +349,7 @@
         <ImageView
             android:id="@+id/imgRefresh"
             style="@style/HomeImageStyle"
+            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:src="@drawable/ic_refresh" />
 

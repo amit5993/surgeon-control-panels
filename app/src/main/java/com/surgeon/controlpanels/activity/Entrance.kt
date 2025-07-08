@@ -1,27 +1,16 @@
 package com.surgeon.controlpanels.activity
 
 import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.surgeon.controlpanels.R
 import com.surgeon.controlpanels.common.Constant
-import com.surgeon.controlpanels.common.OTStatus
-import com.surgeon.controlpanels.common.TimeDifferenceUpdater
-import com.surgeon.controlpanels.common.getCurrentMode
-import com.surgeon.controlpanels.common.getIsEntranceLogin
-import com.surgeon.controlpanels.common.getOTModeLabel
-import com.surgeon.controlpanels.common.showCustomToastLayout
+import com.surgeon.controlpanels.common.getIsEntranceApp
 import com.surgeon.controlpanels.databinding.ActivityEntranceBinding
 import com.surgeon.controlpanels.db.DbHelper
 import com.surgeon.controlpanels.websocket.MyWebSocketListener
@@ -36,20 +25,8 @@ class Entrance : AppCompatActivity(), OnClickListener, WebSocketEventListener {
     lateinit var activity: Activity
     private lateinit var binding: ActivityEntranceBinding
     private lateinit var webSocketListener: MyWebSocketListener
-    private var minutesValue = 0
     private lateinit var dbHelper: DbHelper
-    private var countdownTimer: CountDownTimer? = null
-    private var timeUpdater: TimeDifferenceUpdater? = null
-    private var timeLeftInMillis: Long = 180000
 
-    private val mqttMessageReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            intent?.let {
-                val message = it.getStringExtra("message") ?: ""
-                updateData()
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,32 +39,18 @@ class Entrance : AppCompatActivity(), OnClickListener, WebSocketEventListener {
         activity = this
         dbHelper = DbHelper(activity)
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(
-            mqttMessageReceiver, IntentFilter("com.surgeon.controlpanels.WEB_SOCKET_MESSAGE")
-        )
-
         init()
         initAction()
-        initSocket()
-        //initMode()
-        //initSpinner()
         updateData()
-
-        //startCountdown()
-
-        Log.e("EntranceActivity", getCurrentMode().toString())
 
     }
 
     private fun init() {
 
-        binding.btnStart.visibility = View.GONE
-        binding.btnSkip.visibility = View.GONE
+        if (getIsEntranceApp()) {
 
-        if (getIsEntranceLogin()) {
-            binding.btnLogout.visibility = View.VISIBLE
         } else {
-            binding.btnLogout.visibility = View.GONE
+
         }
 
     }
@@ -96,60 +59,29 @@ class Entrance : AppCompatActivity(), OnClickListener, WebSocketEventListener {
     private fun initAction() {
 
         binding.imgClose.setOnClickListener(this)
-        binding.btnLogout.setOnClickListener(this)
-        binding.btnStart.setOnClickListener(this)
-        binding.btnSkip.setOnClickListener(this)
+        binding.btnConnect.setOnClickListener(this)
 
     }
 
-    private fun initSocket() {
+    private fun onClickConnect() {
+        val socketUrl = binding.etSocketUrl.text.toString()
+        if (socketUrl.isNotEmpty()) {
+            initSocket(socketUrl)
+        } else {
+            binding.tvSocketStatus.text = "Please enter a valid URL"
+        }
+    }
+
+    private fun initSocket(socketUrl: String) {
+
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url(Constant.SOCKET_URL)
+            .url(socketUrl)
             .build()
 
         webSocketListener = MyWebSocketListener(this, client, request)
         webSocketListener.start()
-    }
 
-    private fun showMainView(statusText: String) {
-        binding.llMain.visibility = View.VISIBLE
-        binding.btnSkip.visibility = View.GONE
-        binding.tvOTStatus.visibility = View.VISIBLE
-        binding.tvOTStatus.text = statusText
-        binding.llSurgeryDetails.visibility = View.GONE
-        binding.btnStart.text = getOTModeLabel(activity)
-        binding.btnStart.visibility = View.VISIBLE
-    }
-
-    private fun showCleaningMode() {
-        binding.llMain.visibility = View.VISIBLE
-        binding.tvOTStatus.visibility = View.VISIBLE
-        binding.tvOTStatus.text =
-            "Operating Theatre is currently in Cleaning Mode. Please wait until cleaning is complete before initiating any new procedures."
-        binding.llMinutes.visibility = View.GONE
-        binding.btnStart.visibility = View.GONE
-        binding.btnSkip.visibility = View.GONE
-        binding.llSurgeryDetails.visibility = View.GONE
-    }
-
-    private fun showCountdownMode(currentMode: String) {
-        binding.btnSkip.visibility = View.GONE
-        binding.llMain.visibility = View.VISIBLE
-        binding.tvOTStatus.visibility = View.VISIBLE
-        binding.tvOTStatus.text = "Countdown for ${currentMode.capitalize()} completion"
-        binding.llMinutes.visibility = View.GONE
-        binding.btnStart.visibility = View.GONE
-        binding.llSurgeryDetails.visibility = View.GONE
-    }
-
-    private fun showDefaultMode() {
-        binding.llMain.visibility = View.VISIBLE
-        binding.btnSkip.visibility = View.GONE
-        binding.tvOTStatus.visibility = View.GONE
-        binding.llSurgeryDetails.visibility = View.GONE
-        binding.btnStart.text = getOTModeLabel(activity)
-        binding.btnStart.visibility = View.VISIBLE
     }
 
     private fun updateData() {
@@ -195,10 +127,12 @@ class Entrance : AppCompatActivity(), OnClickListener, WebSocketEventListener {
             Log.e("MyWebSocketListener", "sendMessage - $r")
             if (flag) {
                 Log.e("MyWebSocketListener", "sendMessage - $r")
-                showCustomToastLayout(activity, "Request send")
+                //showCustomToastLayout(activity, "Request send")
+                binding.tvStatus.text = "Request send"
             } else {
                 Log.e("MyWebSocketListener", "sendMessage - fails")
-                showCustomToastLayout(activity, "Request fail")
+                //showCustomToastLayout(activity, "Request fail")
+                binding.tvStatus.text = "Request fail"
             }
         } catch (e: Exception) {
             println()
@@ -210,6 +144,10 @@ class Entrance : AppCompatActivity(), OnClickListener, WebSocketEventListener {
         when (v!!.id) {
             R.id.imgClose -> {
                 finish()
+            }
+
+            R.id.btnConnect -> {
+                onClickConnect()
             }
 
         }
@@ -227,28 +165,33 @@ class Entrance : AppCompatActivity(), OnClickListener, WebSocketEventListener {
 
 
     override fun onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mqttMessageReceiver)
         super.onDestroy()
+    }
 
-        timeUpdater?.stop()
+    override fun onMessageReceived(message: String) {
+        //dbHelper.updateAllDeviceSettings1(JSONObject(message).getString("frameData"))
+        if (message.startsWith("{,")) {
+            dbHelper.updateAllDeviceSettings1(message)
+
+            runOnUiThread {
+                binding.tvStatus.text = message
+            }
+        }
 
     }
 
 
-    override fun onMessageReceived(message: String) {
-        dbHelper.updateAllDeviceSettings1(JSONObject(message).getString("frameData"))
+    override fun onConnected() {
+        binding.tvSocketStatus.text = "Connected"
+    }
+
+
+    override fun onFailure(message: String) {
+        binding.tvSocketStatus.text = message
     }
 
     override fun onBackPressed() {
-        if (getCurrentMode()!! == OTStatus.DEFUMIGATION
-        //|| getCurrentMode()!! == OTStatus.DISINFECTION
-        ) {
-            showCustomToastLayout(activity, "You can close the app before the process finishes.")
-        } else {
-            super.onBackPressed()
-        }
-
-
+        super.onBackPressed()
     }
 
 }

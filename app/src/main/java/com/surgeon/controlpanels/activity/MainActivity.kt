@@ -4,8 +4,12 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.content.BroadcastReceiver
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Color
@@ -21,15 +25,16 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.ImageView
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pusher.client.Pusher
 import com.pusher.client.channel.Channel
 import com.surgeon.controlpanels.R
@@ -39,14 +44,12 @@ import com.surgeon.controlpanels.adapter.StopwatchAdapter
 import com.surgeon.controlpanels.adapter.ViewPagerMenuAdapter
 import com.surgeon.controlpanels.common.AllList
 import com.surgeon.controlpanels.common.Constant
-import com.surgeon.controlpanels.common.OTStatus
 import com.surgeon.controlpanels.common.SeekArc
 import com.surgeon.controlpanels.common.SeekArc.OnSeekArcChangeListener
 import com.surgeon.controlpanels.common.Stopwatch
 import com.surgeon.controlpanels.common.Utils
 import com.surgeon.controlpanels.common.convertHumidity
 import com.surgeon.controlpanels.common.formatStopwatchTime
-import com.surgeon.controlpanels.common.getCurrentMode
 import com.surgeon.controlpanels.common.getGradient
 import com.surgeon.controlpanels.common.getGradientNormal
 import com.surgeon.controlpanels.common.getIsFirstRhToday
@@ -57,8 +60,6 @@ import com.surgeon.controlpanels.common.setIsFirstTempToday
 import com.surgeon.controlpanels.common.setSound
 import com.surgeon.controlpanels.common.showCustomToastLayout
 import com.surgeon.controlpanels.databinding.ActivityMainBinding
-import com.surgeon.controlpanels.databinding.DialogAlertBinding
-import com.surgeon.controlpanels.databinding.DialogGasBinding
 import com.surgeon.controlpanels.databinding.DialogHumidityBinding
 import com.surgeon.controlpanels.databinding.DialogLightBinding
 import com.surgeon.controlpanels.databinding.DialogMusicBinding
@@ -66,20 +67,20 @@ import com.surgeon.controlpanels.databinding.DialogTempBinding
 import com.surgeon.controlpanels.databinding.DialogTimerBinding
 import com.surgeon.controlpanels.db.DbHelper
 import com.surgeon.controlpanels.dialog.AutoDismissDialog
-import com.surgeon.controlpanels.model.CallModel
 import com.surgeon.controlpanels.model.LapModel
 import com.surgeon.controlpanels.model.MenuModel
 import com.surgeon.controlpanels.model.dbsokect.LightDataModel
+import com.surgeon.controlpanels.service.WebSocketService
 import com.surgeon.controlpanels.viewmodel.DeviceSettingViewModel
-import com.surgeon.controlpanels.websocket.MyWebSocketListener
+import com.surgeon.controlpanels.websocket.MyWebSocketServer
 import com.surgeon.controlpanels.websocket.WebSocketEventListener
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.json.JSONObject
 import java.io.IOException
+import java.net.Inet4Address
+import java.net.NetworkInterface
 
 
-class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickListener, ViewPagerMenuAdapter.ClickMenuInterfaceToPager {
+class MainActivity : AppCompatActivity(), View.OnClickListener, ViewPagerMenuAdapter.ClickMenuInterfaceToPager {//WebSocketEventListener
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var activity: Activity
@@ -105,7 +106,8 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
 
     var lightList: List<LightDataModel> = ArrayList()
 
-    lateinit var webSocketListener: MyWebSocketListener
+//    private lateinit var server: MyWebSocketServer
+//    lateinit var webSocketListener: MyWebSocketListener
 
     private lateinit var deviceSettingViewModel: DeviceSettingViewModel
 
@@ -114,6 +116,28 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
 
     private val REQUEST_CODE_READ_MEDIA_AUDIO = 100
     private val REQUEST_CODE_READ_EXTERNAL_STORAGE = 101
+
+    val m =
+        "{,SR_WSL:200001,C_PRESSURE_1:000,C_PRESSURE_1_SIGN_BIT:1,C_PRESSURE_2:000,C_PRESSURE_2_SIGN_BIT:1,C_OT_TEMP:285,C_RH:637,F_Sensor_1_FAULT_BIT:0,F_Sensor_2_FAULT_BIT:1,F_Sensor_3_FAULT_BIT:0,F_Sensor_4_FAULT_BIT:0,F_Sensor_5_FAULT_BIT:0,F_Sensor_6_FAULT_BIT:0,F_Sensor_7_FAULT_BIT:0,F_Sensor_8_FAULT_BIT:0,F_Sensor_9_FAULT_BIT:0,F_Sensor_10_FAULT_BIT:1,S_Sensor_1_NO_NC_SETTING:1,S_Sensor_2_NO_NC_SETTING:1,S_Sensor_3_NO_NC_SETTING:1,S_Sensor_4_NO_NC_SETTING:1,S_Sensor_5_NO_NC_SETTING:1,S_Sensor_6_NO_NC_SETTING:1,S_Sensor_7_NO_NC_SETTING:1,S_Sensor_8_NO_NC_SETTING:1,S_Sensor_9_NO_NC_SETTING:1,S_Sensor_10_NO_NC_SETTING:1,S_Light_1_ON_OFF:0,S_Light_2_ON_OFF:0,S_Light_3_ON_OFF:0,S_Light_4_ON_OFF:0,S_Light_5_ON_OFF:0,S_Light_6_ON_OFF:0,S_Light_7_ON_OFF:0,S_Light_8_ON_OFF:1,S_Light_9_ON_OFF:1,S_Light_10_ON_OFF:1,S_Light_1_Intensity:045,S_Light_2_Intensity:020,S_Light_3_Intensity:030,S_Light_4_Intensity:090,S_Light_5_Intensity:020,S_Light_6_Intensity:095,S_Light_7_Intensity:070,S_Light_8_Intensity:080,S_Light_9_Intensity:090,S_Light_10_Intensity:050,S_IOT_TIMER:0030,S_TEMP_SETPT:215,S_RH_SETPT:175}"
+
+    private val messageReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val action = intent?.action
+            val data = intent?.getStringExtra("data") ?: return
+
+            when (action) {
+                "WEBSOCKET_MESSAGE" -> {
+                    onMessageReceived(data)
+                    showMessageDialog(data)
+                }
+
+                "WEBSOCKET_LOG" -> {
+                    binding.tvLog.text = data
+                    Log.d("WebSocketServer", data)
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -140,7 +164,8 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
         init()
         initAction()
 
-        initSocket()
+        startServer()
+        initReceiver()
 
         //initPusher()
 
@@ -150,43 +175,137 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
 
     }
 
-    private fun initSocket() {
+    private fun startServer() {
 
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(Constant.SOCKET_URL)
-            .build()
+        val intent = Intent(this, WebSocketService::class.java)
+        startService(intent)
 
-        webSocketListener = MyWebSocketListener(this, client, request)
-        webSocketListener.start()
+
+        val interfaces = NetworkInterface.getNetworkInterfaces()
+        while (interfaces.hasMoreElements()) {
+            val networkInterface = interfaces.nextElement()
+            val addresses = networkInterface.inetAddresses
+            while (addresses.hasMoreElements()) {
+                val address = addresses.nextElement()
+                if (!address.isLoopbackAddress && address is Inet4Address) {
+                    Log.d("NetworkInterface", "${networkInterface.name}: ${address.hostAddress}")
+                }
+            }
+        }
+
+
+        val ip = getLocalIpAddress()
+        binding.tvOTName.text = "Connect to: ws://$ip:${Constant.SERVER_PORT}"
+        Log.d("WebSocketServer", "Server started at ws://$ip:${Constant.SERVER_PORT}")
+
+
+//        try {
+//            server = MyWebSocketServer(
+//                Constant.SERVER_PORT,
+//                onMessage = { message ->
+//                    runOnUiThread {
+//                        onMessageReceived(message)
+//                        showMessageDialog(message)
+//                    }
+//                },
+//                onLog = { logMsg ->
+//                    runOnUiThread {
+//                        // Optional: display logs in a TextView or log it
+//                        binding.tvLog.text = logMsg
+//                        Log.d("WebSocketServer", logMsg)
+//                    }
+//                }
+//            )
+//
+//            // Log all available network interfaces for debugging
+//            val interfaces = NetworkInterface.getNetworkInterfaces()
+//            while (interfaces.hasMoreElements()) {
+//                val networkInterface = interfaces.nextElement()
+//                val addresses = networkInterface.inetAddresses
+//                while (addresses.hasMoreElements()) {
+//                    val address = addresses.nextElement()
+//                    if (!address.isLoopbackAddress && address is Inet4Address) {
+//                        Log.d("NetworkInterface", "${networkInterface.name}: ${address.hostAddress}")
+//                    }
+//                }
+//            }
+//
+//            server.start()
+//
+//            val ip = getLocalIpAddress()
+//            binding.tvOTName.text = "Connect to: ws://$ip:${Constant.SERVER_PORT}"
+//            Log.d("WebSocketServer", "Server started at ws://$ip:${Constant.SERVER_PORT}")
+//        } catch (e: Exception) {
+//            Log.e("WebSocketServer", "Error starting server: ${e.message}", e)
+//            binding.tvLog.text = "Error: ${e.message}"
+//        }
+    }
+
+    private fun initReceiver() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+            messageReceiver,
+            IntentFilter().apply {
+                addAction("WEBSOCKET_MESSAGE")
+                addAction("WEBSOCKET_LOG")
+            }
+        )
 
     }
 
+    private fun sendMessageToClients(message: String) {
+        val intent = Intent("SEND_TO_ALL_CLIENTS")
+        intent.putExtra("message", message)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+    }
+
+    private fun getLocalIpAddress(): String? {
+        try {
+            val interfaces = NetworkInterface.getNetworkInterfaces()
+            for (intf in interfaces) {
+                val addresses = intf.inetAddresses
+                for (addr in addresses) {
+                    if (!addr.isLoopbackAddress && addr is Inet4Address) {
+                        return addr.hostAddress
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+
+    private fun showMessageDialog(message: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("New Message")
+        builder.setMessage(message)
+
+        builder.setPositiveButton("Copy") { dialog, _ ->
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("WebSocketMessage", message)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Message copied", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Close") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.show()
+    }
+
+
     private fun sendMessage(message: String, toastMsg: String = "") {
 
-//val finalMsg = message.replace("\"","").replace("\n", "").replace(" ", "")
 //val finalMsg1 = "{frameData: '{,SR_WSL:200001,S_Sensor_1_NO_NC_SETTING:1,S_Sensor_2_NO_NC_SETTING:1,S_Sensor_3_NO_NC_SETTING:1,S_Sensor_4_NO_NC_SETTING:1,S_Sensor_5_NO_NC_SETTING:1,S_Sensor_6_NO_NC_SETTING:1,S_Sensor_7_NO_NC_SETTING:1,S_Sensor_8_NO_NC_SETTING:1,S_Sensor_9_NO_NC_SETTING:1,S_Sensor_10_NO_NC_SETTING:1,S_Light_1_ON_OFF:0,S_Light_2_ON_OFF:0,S_Light_3_ON_OFF:1,S_Light_4_ON_OFF:1,S_Light_5_ON_OFF:1,S_Light_6_ON_OFF:1,S_Light_7_ON_OFF:1,S_Light_8_ON_OFF:1,S_Light_9_ON_OFF:1,S_Light_10_ON_OFF:1,S_Light_1_Intensity:010,S_Light_2_Intensity:020,S_Light_3_Intensity:030,S_Light_4_Intensity:090,S_Light_5_Intensity:020,S_Light_6_Intensity:060,S_Light_7_Intensity:070,S_Light_8_Intensity:080,S_Light_9_Intensity:090,S_Light_10_Intensity:050,S_IOT_TIMER:0030,S_TEMP_SETPT:200,S_RH_SETPT:750}',  receivedFrom: 'app'}"
 
         val r = JSONObject()
         r.put("frameData", message)
         r.put("receivedFrom", "app")
 
-        val flag = webSocketListener.sendRequest(r.toString())
-
-        val msg = if (toastMsg.isNotEmpty()) {
-            "Request sent : $toastMsg"
-        } else {
-            "Request sent"
-        }
-
-        if (flag) {
-            Log.e("MyWebSocketListener", "sendMessage - $r")
-            showCustomToastLayout(activity, msg)
-        } else {
-            Log.e("MyWebSocketListener", "sendMessage - fails")
-            showCustomToastLayout(activity, msg)
-        }
-
+        sendMessageToClients(r.toString())
 
     }
 
@@ -222,7 +341,6 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
         binding.playPauseButton.setOnClickListener(this)
         binding.nextButton.setOnClickListener(this)
         binding.imgMute.setOnClickListener(this)
-        binding.btnStart.setOnClickListener(this)
 //        binding.btnPlayMPGS.setOnClickListener(this)
         binding.flMute.setOnClickListener(this)
     }
@@ -287,6 +405,10 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
             else -> "Hepa : Unhealthy" to R.color.colorRed
         }
 
+        if (hepaValue != "0") {
+            Utils.blinkAnimation(binding.tvHepa)
+        }
+
         binding.tvHepa.apply {
             text = hepaText
             setTextColor(ContextCompat.getColor(activity, hepaColor))
@@ -347,6 +469,8 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
             R.id.imgSetting -> {
                 val intent = Intent(this, Setting::class.java)
                 startActivity(intent)
+
+//                onMessageReceived(m)
             }
 
             R.id.previousButton -> {
@@ -402,7 +526,7 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
             }
 
             Constant.entrance -> {
-                val intent = Intent(this, Entrance::class.java)
+                val intent = Intent(this, Entrance2::class.java)
                 startActivity(intent)
             }
 
@@ -417,8 +541,6 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
         val dTheme = dbHelper.getTheme(Constant.main)
         binding.llMain.setBackgroundDrawable(getGradientNormal(dTheme.color1, dTheme.color2))
 
-        manageSurgeryStatusText()
-
         // Ensure menu is properly loaded
         if (!::viewPagerMenuAdapter.isInitialized || menuList.isEmpty()) {
             setMenuAdapter()
@@ -429,13 +551,6 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
 
     }
 
-    private fun manageSurgeryStatusText() {
-        if (getCurrentMode()!! == OTStatus.STARTED) {
-            binding.tvSurgeryStatus.visibility = View.VISIBLE
-        } else {
-            binding.tvSurgeryStatus.visibility = View.GONE
-        }
-    }
 
     private fun showWarningDialog(context: Context, msg: String) {
         android.app.AlertDialog.Builder(context)
@@ -1241,9 +1356,10 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
 
     override fun onDestroy() {
         super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(messageReceiver)
         releasePlayer()
         Stopwatch.removeUpdateListener(mainUpdateListener)
-        webSocketListener.closeWebSocket()
+        //webSocketListener.closeWebSocket()
     }
 
     private var mgpsMediaPlayer: MediaPlayer? = null
@@ -1291,31 +1407,39 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
 
     }
 
-    override fun onMessageReceived(message: String) {
-        // Update database
-        deviceSettingViewModel.updateAllDeviceSettings(message)
+    private fun onMessageReceived(message: String) {
+        try {
+            //val jsonObject = JSONObject(message)
 
-        // Run UI updates on the main thread
-        runOnUiThread {
-            checkMGPSAlarm()
-            updateTempRhInMenu()
-            setHepa()
-            setSystemOnOffManage()
-            checkRequestedTempAchievedOrNot()
-            checkRequestedRHAchievedOrNot()
+            // Update database
+            deviceSettingViewModel.updateAllDeviceSettings(message)
 
-            // Force adapter refresh
-            if (::viewPagerMenuAdapter.isInitialized) {
-                viewPagerMenuAdapter.notifyDataSetChanged()
+            // Run UI updates on the main thread
+            runOnUiThread {
+                checkMGPSAlarm()
+                updateTempRhInMenu()
+                setHepa()
+                setSystemOnOffManage()
+                checkRequestedTempAchievedOrNot()
+                checkRequestedRHAchievedOrNot()
+
+                // Force adapter refresh
+                if (::viewPagerMenuAdapter.isInitialized) {
+                    viewPagerMenuAdapter.notifyDataSetChanged()
+                }
+
+                showCustomToastLayout(activity, "updating UI")
             }
+
+            Log.d("WebSocket", "Message received, updating UI")
+
+            // Create and send broadcast
+//        val intent = Intent("com.surgeon.controlpanels.WEB_SOCKET_MESSAGE")
+//        intent.putExtra("message", message)
+//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        } catch (e: Exception) {
+            println()
         }
-
-        Log.d("WebSocket", "Message received, updating UI")
-
-        // Create and send broadcast
-        val intent = Intent("com.surgeon.controlpanels.WEB_SOCKET_MESSAGE")
-        intent.putExtra("message", message)
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 
     private fun checkRequestedRHAchievedOrNot() {
@@ -1337,7 +1461,7 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
     }
 
     private fun checkMGPSAlarm() {
-        val list = dbHelper.getDeviceSettingsByType(1)
+        val list = dbHelper.getDeviceSettingsByType(Constant.DB_MGPS_TYPE)
         val index = list.indexOfFirst { it.value == "1" }
         Log.e("checkMGPSAlarm", "checkMGPSAlarm: $index")
         if (index != -1) {
@@ -1349,6 +1473,21 @@ class MainActivity : AppCompatActivity(), WebSocketEventListener, View.OnClickLi
             binding.flMute.visibility = View.GONE
         }
 
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit App")
+            .setMessage("Are you sure you want to exit?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+                moveTaskToBack(true)
+                //finish() // or finishAffinity() to close all activities
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
 }

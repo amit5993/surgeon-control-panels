@@ -151,6 +151,9 @@ dependencies {
     /* web socket */
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
+    /* web socket server */
+    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
+
     /* pusher */
     implementation 'com.pusher:pusher-java-client:2.2.6'
 

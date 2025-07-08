@@ -1,5 +1,10 @@
 package com.surgeon.controlpanels.common
 
+import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+
 object Utils {
     private var lastClickTime: Long = 0
 
@@ -10,5 +15,14 @@ object Utils {
             lastClickTime = currentTime
         }
         return canClick
+    }
+
+    fun blinkAnimation(view: View){
+        val animation: Animation = AlphaAnimation(1f, 0f)
+        animation.setDuration(600)
+        animation.interpolator = LinearInterpolator()
+        animation.setRepeatCount(Animation.INFINITE)
+        animation.repeatMode = Animation.REVERSE
+        view.startAnimation(animation)
     }
 }

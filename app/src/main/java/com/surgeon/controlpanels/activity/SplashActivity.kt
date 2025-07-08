@@ -12,10 +12,10 @@ import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.surgeon.controlpanels.R
-import com.surgeon.controlpanels.common.getIsEntranceLogin
-import com.surgeon.controlpanels.common.getIsReportLogin
-import com.surgeon.controlpanels.common.getToken
+import com.surgeon.controlpanels.common.getIsEntranceApp
+import com.surgeon.controlpanels.common.getOTDetails
 import com.surgeon.controlpanels.common.isFirstOpenToday
+import com.surgeon.controlpanels.common.setIsEntranceApp
 import com.surgeon.controlpanels.databinding.ActivitySplashBinding
 
 
@@ -37,10 +37,12 @@ class SplashActivity : AppCompatActivity() {
         getIncomingIntent()
         isFirstOpenToday()
 
+        //todo comment in production
+        //setIsEntranceApp(false)
+
         playVideo()
         requestDisableBatteryOptimization()
     }
-
 
     private fun getIncomingIntent() {
         try {
@@ -58,12 +60,18 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun navigate() {
-        if (getIsEntranceLogin()) {
-            startActivity(Intent(this, Entrance::class.java))
+
+        if (getOTDetails().isNotEmpty()) {
+            if (getIsEntranceApp()) {
+                startActivity(Intent(this, Entrance2::class.java))
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         } else {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, Login::class.java))
         }
 
+        //startActivity(Intent(this, Login::class.java))
         finish()
     }
 

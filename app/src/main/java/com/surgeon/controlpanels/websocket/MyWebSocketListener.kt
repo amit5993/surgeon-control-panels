@@ -28,6 +28,7 @@ class MyWebSocketListener(
     override fun onOpen(webSocket: WebSocket, response: Response) {
         Log.e(TAG, "onOpen - $response")
         // Optionally cancel any pending reconnection attempts here.
+        eventListener.onConnected()
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
@@ -42,12 +43,24 @@ class MyWebSocketListener(
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
         webSocket.close(1000, null)
         Log.e(TAG, "onClosing - $reason")
+
+        eventListener.onFailure(reason)
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         Log.e(TAG, "onFailure - Throwable: ${t.localizedMessage}, Response: $response")
         // Attempt to reconnect after a delay
-        reconnectWebSocket()
+        //reconnectWebSocket()
+        try {
+            if (response != null) {
+                eventListener.onFailure(response.message)
+            } else {
+                eventListener.onFailure(t.localizedMessage)
+            }
+        } catch (e: Exception) {
+            println()
+        }
+
     }
 
     private fun reconnectWebSocket() {

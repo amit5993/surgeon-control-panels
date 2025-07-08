@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.surgeon.controlpanels.adapter.MGPSListAdapter
+import com.surgeon.controlpanels.common.Constant
 import com.surgeon.controlpanels.databinding.ActivityMgpsBinding
 import com.surgeon.controlpanels.db.DbHelper
 import com.surgeon.controlpanels.model.dbsokect.DeviceSettingModel
@@ -45,7 +46,7 @@ class MGPS : AppCompatActivity() {
             finish()
         }
 
-        list = dbHelper.getDeviceSettingsByType(1)
+        list = dbHelper.getDeviceSettingsByType(Constant.DB_MGPS_TYPE)
 
 //        var listData : ArrayList<MGPSData> = ArrayList()
 //        listData = AllList.initTMGPSList()
@@ -60,7 +61,7 @@ class MGPS : AppCompatActivity() {
         binding.rvGas.adapter = adapter
 
         deviceSettingViewModel.deviceSettings.observe(this) { it ->
-            list = dbHelper.getDeviceSettingsByType(1)
+            list = dbHelper.getDeviceSettingsByType(Constant.DB_MGPS_TYPE)
             adapter.updateData(list)
         }
 

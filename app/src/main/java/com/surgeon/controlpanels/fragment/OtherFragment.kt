@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 
-class OtherFragment : Fragment(), WebSocketEventListener {
+class OtherFragment : Fragment() {
 
     private lateinit var binding: FragmentOtherBinding
     private lateinit var activity: Activity
@@ -36,7 +36,7 @@ class OtherFragment : Fragment(), WebSocketEventListener {
         dbHelper = DbHelper(activity)
 
         init()
-        initSocket()
+//        initSocket()
 
         return binding.root
     }
@@ -87,15 +87,15 @@ class OtherFragment : Fragment(), WebSocketEventListener {
 
 
 
-    private fun initSocket() {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(Constant.SOCKET_URL)
-            .build()
-
-        webSocketListener = MyWebSocketListener(this, client, request)
-        webSocketListener.start()
-    }
+//    private fun initSocket() {
+//        val client = OkHttpClient()
+//        val request = Request.Builder()
+//            .url(Constant.SOCKET_URL)
+//            .build()
+//
+//        webSocketListener = MyWebSocketListener(this, client, request)
+//        webSocketListener.start()
+//    }
 
     private fun sendMessage(message: String) {
 
@@ -138,17 +138,17 @@ class OtherFragment : Fragment(), WebSocketEventListener {
             .show()
     }
 
-    override fun onMessageReceived(message: String) {
-        dbHelper.updateAllDeviceSettings1(JSONObject(message).getString("frameData"))
-        //update db and notify all list
-//        deviceSettingViewModel.updateAllDeviceSettings(message)
-//        updateTempRhInMenu()
-//
-//        // Create and send broadcast
-//        val intent = Intent("com.surgeon.controlpanels.WEB_SOCKET_MESSAGE")
-//        intent.putExtra("message", message)
-//        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-    }
+//    override fun onMessageReceived(message: String) {
+//        dbHelper.updateAllDeviceSettings1(JSONObject(message).getString("frameData"))
+//        //update db and notify all list
+////        deviceSettingViewModel.updateAllDeviceSettings(message)
+////        updateTempRhInMenu()
+////
+////        // Create and send broadcast
+////        val intent = Intent("com.surgeon.controlpanels.WEB_SOCKET_MESSAGE")
+////        intent.putExtra("message", message)
+////        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+//    }
 
 
 }

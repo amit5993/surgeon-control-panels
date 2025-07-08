@@ -11,6 +11,7 @@ import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.surgeon.controlpanels.R
+import com.surgeon.controlpanels.common.Utils
 import com.surgeon.controlpanels.databinding.RawMgpsBinding
 import com.surgeon.controlpanels.model.dbsokect.DeviceSettingModel
 
@@ -78,12 +79,8 @@ class MGPSListAdapter(var context: Context, var AdapterList: List<DeviceSettingM
                 binding.tvTitle.setTextColor(ContextCompat.getColor(context, R.color.black))
                 binding.tvCurrent.setTextColor(ContextCompat.getColor(context, R.color.black))
 
-                val animation: Animation = AlphaAnimation(1f, 0f)
-                animation.setDuration(600)
-                animation.interpolator = LinearInterpolator()
-                animation.setRepeatCount(Animation.INFINITE)
-                animation.repeatMode = Animation.REVERSE
-                binding.llMain.startAnimation(animation)
+                Utils.blinkAnimation(binding.llMain)
+
             } else {
                 binding.img.setColorFilter(
                     ContextCompat.getColor(context, R.color.colorGreen),
