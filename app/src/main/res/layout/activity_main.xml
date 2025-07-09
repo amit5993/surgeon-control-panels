@@ -218,6 +218,7 @@
         android:paddingHorizontal="@dimen/_15sdp">
 
         <ImageView
+            android:id="@+id/imgWiespl"
             android:layout_width="@dimen/_90sdp"
             android:layout_height="match_parent"
             android:src="@drawable/app_icon" />

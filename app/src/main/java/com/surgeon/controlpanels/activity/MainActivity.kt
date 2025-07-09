@@ -124,16 +124,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ViewPagerMenuAda
         override fun onReceive(context: Context?, intent: Intent?) {
             val action = intent?.action
             val data = intent?.getStringExtra("data") ?: return
+            Log.d("WebSocketService", "action : $action, data : $data")
 
             when (action) {
-                "WEBSOCKET_MESSAGE" -> {
+                Constant.WS_MSG -> {
                     onMessageReceived(data)
-                    showMessageDialog(data)
+                    //showMessageDialog(data)
                 }
 
-                "WEBSOCKET_LOG" -> {
-                    binding.tvLog.text = data
+                Constant.WS_LOG -> {
+                    //binding.tvLog.text = data
                     Log.d("WebSocketServer", data)
+                }
+
+                Constant.WS_CONNECTED_CLIENT -> {
+                    try {
+                        if (data.toInt() > 0) {
+                            binding.tvLog.text = "Connected Clients: $data"
+                            binding.tvLog.visibility = View.VISIBLE
+                        } else {
+                            binding.tvLog.visibility = View.GONE
+                        }
+                    } catch (e: Exception) {
+                        binding.tvLog.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -194,9 +208,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ViewPagerMenuAda
         }
 
 
-        val ip = getLocalIpAddress()
-        binding.tvOTName.text = "Connect to: ws://$ip:${Constant.SERVER_PORT}"
-        Log.d("WebSocketServer", "Server started at ws://$ip:${Constant.SERVER_PORT}")
+//        val ip = getLocalIpAddress()
+//        binding.tvOTName.text = "Connect to: ws://$ip:${Constant.SERVER_PORT}"
+//        Log.d("WebSocketServer", "Server started at ws://$ip:${Constant.SERVER_PORT}")
 
 
 //        try {
@@ -245,8 +259,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ViewPagerMenuAda
         LocalBroadcastManager.getInstance(this).registerReceiver(
             messageReceiver,
             IntentFilter().apply {
-                addAction("WEBSOCKET_MESSAGE")
-                addAction("WEBSOCKET_LOG")
+                addAction(Constant.WS_MSG)
+                addAction(Constant.WS_LOG)
+                addAction(Constant.WS_CONNECTED_CLIENT)
             }
         )
 
@@ -343,6 +358,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ViewPagerMenuAda
         binding.imgMute.setOnClickListener(this)
 //        binding.btnPlayMPGS.setOnClickListener(this)
         binding.flMute.setOnClickListener(this)
+
+
+        binding.imgWiespl.setOnLongClickListener {
+            val ip = getLocalIpAddress()
+            //binding.tvOTName.text = "Connect to: ws://$ip:${Constant.SERVER_PORT}"
+            showCustomToastLayout(activity, "ws://$ip:${Constant.SERVER_PORT}")
+            true
+        }
     }
 
     private fun updateTempRhInMenu() {
@@ -1428,7 +1451,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ViewPagerMenuAda
                     viewPagerMenuAdapter.notifyDataSetChanged()
                 }
 
-                showCustomToastLayout(activity, "updating UI")
+                //showCustomToastLayout(activity, "updating UI")
             }
 
             Log.d("WebSocket", "Message received, updating UI")

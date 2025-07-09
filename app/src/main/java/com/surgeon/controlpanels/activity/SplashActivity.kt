@@ -71,6 +71,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this, Login::class.java))
         }
 
+        //startActivity(Intent(this, Entrance2::class.java))
         //startActivity(Intent(this, Login::class.java))
         finish()
     }

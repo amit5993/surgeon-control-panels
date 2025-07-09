@@ -6,6 +6,10 @@ class Constant {
         const val BASE_URL = "http://scp.server.wiespl.com/api/validate-code"
         const val SERVER_PORT = 8080
 
+        const val WS_MSG = "WEBSOCKET_MESSAGE"
+        const val WS_LOG = "WEBSOCKET_LOG"
+        const val WS_CONNECTED_CLIENT = "WEBSOCKET_CONNECTED_CLIENT"
+
         const val main = "MAIN"
 
         const val temp = "TEMP"

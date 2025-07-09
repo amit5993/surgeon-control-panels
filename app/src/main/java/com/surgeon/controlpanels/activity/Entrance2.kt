@@ -1,20 +1,35 @@
 package com.surgeon.controlpanels.activity
 
 import android.app.Activity
+import android.app.Dialog
+import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.surgeon.controlpanels.R
 import com.surgeon.controlpanels.common.Constant
+import com.surgeon.controlpanels.common.SeekArc
+import com.surgeon.controlpanels.common.SeekArc.OnSeekArcChangeListener
+import com.surgeon.controlpanels.common.convertHumidity
+import com.surgeon.controlpanels.common.getEntranceAppBaseUrl
+import com.surgeon.controlpanels.common.getGradient
 import com.surgeon.controlpanels.common.getIsEntranceApp
+import com.surgeon.controlpanels.common.getIsFirstRhToday
+import com.surgeon.controlpanels.common.setEntranceAppBaseUrl
+import com.surgeon.controlpanels.common.setIsFirstRhToday
 import com.surgeon.controlpanels.common.showCustomToastLayout
 import com.surgeon.controlpanels.databinding.ActivityEntrance2Binding
 import com.surgeon.controlpanels.databinding.ActivityEntranceBinding
+import com.surgeon.controlpanels.databinding.DialogSocketSettingsBinding
 import com.surgeon.controlpanels.db.DbHelper
+import com.surgeon.controlpanels.dialog.AutoDismissDialog
 import com.surgeon.controlpanels.websocket.MyWebSocketListener
 import com.surgeon.controlpanels.websocket.WebSocketEventListener
 import okhttp3.OkHttpClient
@@ -58,31 +73,25 @@ class Entrance2 : AppCompatActivity(), OnClickListener, WebSocketEventListener {
         binding.tvTodayDate.text = currentDate
 
 
-        if (getIsEntranceApp()) {
-
-        } else {
-
-        }
-
     }
 
 
     private fun initAction() {
 
 //        binding.imgClose.setOnClickListener(this)
-        binding.btnConnect.setOnClickListener(this)
+        binding.imgSetting.setOnClickListener(this)
 
     }
 
-    private fun onClickConnect() {
-        val socketUrl = binding.etSocketUrl.text.toString()
-        if (socketUrl.isNotEmpty()) {
-            initSocket(socketUrl)
-        } else {
-//            binding.tvSocketStatus.text = "Please enter a valid URL"
-            showCustomToastLayout(activity, "Please enter a valid URL")
-        }
-    }
+//    private fun onClickConnect() {
+//        val socketUrl = binding.etSocketUrl.text.toString()
+//        if (socketUrl.isNotEmpty()) {
+//            initSocket(socketUrl)
+//        } else {
+////            binding.tvSocketStatus.text = "Please enter a valid URL"
+//            showCustomToastLayout(activity, "Please enter a valid URL")
+//        }
+//    }
 
     private fun initSocket(socketUrl: String) {
 
@@ -126,8 +135,8 @@ class Entrance2 : AppCompatActivity(), OnClickListener, WebSocketEventListener {
                 finish()
             }
 
-            R.id.btnConnect -> {
-                onClickConnect()
+            R.id.imgSetting -> {
+                showSocketSettingsDialog()
             }
 
         }
@@ -248,6 +257,49 @@ class Entrance2 : AppCompatActivity(), OnClickListener, WebSocketEventListener {
 
     }
 
+
+    private fun showSocketSettingsDialog() {
+        val d = Dialog(activity)
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        d.setCancelable(true)
+        d.setContentView(R.layout.dialog_socket_settings)
+
+        val binding = DialogSocketSettingsBinding.inflate(layoutInflater)
+        d.setContentView(binding.root)
+
+        d.window?.apply {
+            attributes.windowAnimations = R.style.DialogAnimation
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            val width = (Resources.getSystem().displayMetrics.widthPixels * 0.6).toInt()
+            //val height = (Resources.getSystem().displayMetrics.heightPixels * 0.85).toInt()
+            setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
+        }
+
+
+        if (getEntranceAppBaseUrl().isNotEmpty()) {
+            binding.etSocketUrl.setText(getEntranceAppBaseUrl())
+        }
+
+        binding.imgClose.setOnClickListener {
+            d.dismiss()
+        }
+
+        // Set click listeners
+        binding.btnConnect.setOnClickListener {
+            val socketUrl = binding.etSocketUrl.text.toString()
+            if (socketUrl.isNotEmpty()) {
+                binding.etSocketUrl.setText(socketUrl)
+                initSocket(socketUrl)
+                setEntranceAppBaseUrl(socketUrl)
+                d.dismiss()
+            } else {
+                showCustomToastLayout(activity, "Please enter a valid URL")
+            }
+        }
+
+        d.show()
+
+    }
 
     override fun onConnected() {
         runOnUiThread {

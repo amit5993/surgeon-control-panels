@@ -11,6 +11,7 @@ internal const val device = "Device"
 internal const val latestSurgery = "LatestSurgery"
 internal const val currentMode = "CurrentMode"
 internal const val isEntrance = "IsEntrance"
+internal const val entranceAppBaseUrl = "EntranceAppBaseUrl"
 internal const val isReport = "IsReport"
 internal const val isFirstTempToday = "IsFirstTempToday"
 internal const val isFirstRhToday = "IsFirstRhToday"
@@ -54,6 +55,16 @@ fun Context.setIsEntranceApp(data: Boolean) {
 
 fun Context.getIsEntranceApp(): Boolean {
     return getSharedPreferences().getBoolean(isEntrance, false)
+}
+
+fun Context.setEntranceAppBaseUrl(data: String) {
+    val editor = getSharedPreferences().edit()
+    editor.putString(entranceAppBaseUrl, data)
+    editor.apply()
+}
+
+fun Context.getEntranceAppBaseUrl(): String {
+    return getSharedPreferences().getString(entranceAppBaseUrl, "")!!
 }
 
 fun Context.setIsFirstTempToday(data: Boolean) {

@@ -9,7 +9,8 @@ import java.net.InetSocketAddress
 class MyWebSocketServer(
     port: Int,
     private val onMessage: (String) -> Unit,
-    private val onLog: (String) -> Unit
+    private val onLog: (String) -> Unit,
+    private val onlineClientsCount: (Int) -> Unit,
 ) : WebSocketServer(InetSocketAddress(port)) {
 
     private val connectedClients = mutableListOf<WebSocket>()
@@ -19,6 +20,7 @@ class MyWebSocketServer(
             connectedClients.add(it)
             val msg = "Client connected: ${it.remoteSocketAddress}"
             Log.d("WebSocket", msg)
+            onlineClientsCount(getClientCount())
             onLog(msg)
         }
     }
@@ -28,6 +30,7 @@ class MyWebSocketServer(
             connectedClients.remove(it)
             val msg = "Client disconnected: ${it.remoteSocketAddress}"
             Log.d("WebSocket", msg)
+            onlineClientsCount(getClientCount())
             onLog(msg)
         }
     }
@@ -81,5 +84,9 @@ class MyWebSocketServer(
                 onLog(logMsg)
             }
         }
+    }
+
+    fun getClientCount(): Int {
+        return connectedClients.size
     }
 }

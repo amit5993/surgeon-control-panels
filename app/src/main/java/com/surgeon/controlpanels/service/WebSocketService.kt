@@ -33,11 +33,15 @@ class WebSocketService : Service() {
             Constant.SERVER_PORT,
             onMessage = { message ->
                 Log.d("WebSocketService", "Message: $message")
-                sendMessageToActivity("WEBSOCKET_MESSAGE", message)
+                sendMessageToActivity(Constant.WS_MSG, message)
             },
             onLog = { log ->
                 Log.d("WebSocketService", log)
-                sendMessageToActivity("WEBSOCKET_LOG", log)
+                sendMessageToActivity(Constant.WS_LOG, log)
+            },
+            onlineClientsCount = { count ->
+                Log.d("WebSocketService", "Connected Client : $count")
+                sendMessageToActivity(Constant.WS_CONNECTED_CLIENT, count.toString())
             }
         )
         server.start()
@@ -57,6 +61,7 @@ class WebSocketService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     private fun sendMessageToActivity(action: String, data: String) {
+        Log.d("WebSocketService", "action : $action, data : $data")
         val intent = Intent(action)
         intent.putExtra("data", data)
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent)

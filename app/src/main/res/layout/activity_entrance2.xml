@@ -20,6 +20,7 @@
             android:src="@drawable/app_icon" />
 
         <ImageView
+            android:id="@+id/imgSetting"
             android:layout_width="?actionBarSize"
             android:layout_height="?actionBarSize"
             android:layout_alignParentRight="true"
@@ -31,40 +32,17 @@
     </RelativeLayout>
 
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_25sdp"
+        android:fontFamily="@font/poppins_bold"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="1dp">
-
-        <EditText
-            android:id="@+id/etSocketUrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/shape_round_edittext"
-            android:fontFamily="@font/poppins_regular"
-            android:hint="Enter Socket URL"
-            android:inputType="textUri"
-            android:padding="@dimen/_5sdp"
-            android:text="ws://192.168.137.216:8080"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10ssp" />
+        android:padding="@dimen/_10sdp"
+        android:text="OR Status Monitor"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp" />
 
 
-        <Button
-            android:id="@+id/btnConnect"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_22sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:background="@drawable/shape_round_btn"
-            android:text="Connect"
-            android:textSize="@dimen/_9ssp"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
 
     <!-- Two Column Content -->
     <LinearLayout
